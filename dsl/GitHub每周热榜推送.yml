@@ -1,0 +1,368 @@
+app:
+  description: 拉取GitHub热度榜单整理后推送至TT机器人
+  icon: zany_face
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: GitHub每周热榜推送
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: code
+      id: 1739275343358-source-1739276134655-target
+      source: '1739275343358'
+      sourceHandle: source
+      target: '1739276134655'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1739276134655-source-1739276238095-target
+      source: '1739276134655'
+      sourceHandle: source
+      target: '1739276238095'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: end
+      id: 1739276238095-source-1739173566896-target
+      source: '1739276238095'
+      sourceHandle: source
+      target: '1739173566896'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: tool
+      id: 1739173058136-source-1739359068969-target
+      source: '1739173058136'
+      sourceHandle: source
+      target: '1739359068969'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: tool
+        targetType: code
+      id: 1739359068969-source-1739264853862-target
+      source: '1739359068969'
+      sourceHandle: source
+      target: '1739264853862'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: llm
+      id: 1739264853862-source-1739275343358-target
+      source: '1739264853862'
+      sourceHandle: source
+      target: '1739275343358'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1739173058136'
+      position:
+        x: 30
+        y: 268
+      positionAbsolute:
+        x: 30
+        y: 268
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1739276134655'
+          - result
+          variable: body
+        selected: false
+        title: 结束
+        type: end
+      height: 90
+      id: '1739173566896'
+      position:
+        x: 1854
+        y: 268
+      positionAbsolute:
+        x: 1854
+        y: 268
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import requests\nfrom bs4 import BeautifulSoup\nimport urllib3\nurllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)\n\
+          def main(ar1: str) -> dict:\n    repos_arr = []\n    max_count = 10\n  \
+          \  url = 'https://github.com/trending?since=weekly'\n    base_url = 'https://github.com'\n\
+          \    headers = {\n    \"User-Agent\": ar1\n    }\n    # 发送 GET 请求\n    response\
+          \ = requests.get(url,verify=False, headers=headers)\n    \n    # 检查请求是否成功\n\
+          \    if response.status_code == 200:\n        # 使用 BeautifulSoup 解析 HTML\
+          \ 内容\n        soup = BeautifulSoup(response.text, 'html.parser')\n     \
+          \   # 查找所有仓库项\n        repos = soup.find_all('article', class_='Box-row')\
+          \  # 根据实际页面结构可能需要调整\n        i = 1\n        for repo in repos:\n       \
+          \     if i > max_count:\n                break\n            try:\n     \
+          \           repo_h2 = repo.find('h2', class_='h3 lh-condensed')\n      \
+          \          repo_a_tag = repo_h2.find('a')\n                repo_link = repo_a_tag['href']\n\
+          \                repo_name = repo_a_tag.text.strip().replace(\"\\n\", \"\
+          \").replace(\" \", \"\")\n                repo_desc = repo.find('p').text.strip()\n\
+          \                repo_stars = repo.find('div', class_='f6 color-fg-muted\
+          \ mt-2').find('span',\n                                                \
+          \                                    class_='d-inline-block float-sm-right').text.strip()\n\
+          \                repo_info = {\n                    'name': repo_name,\n\
+          \                    'desc': repo_desc,\n                    'link': base_url\
+          \ + repo_link,\n                    'stars': repo_stars\n              \
+          \  }\n                repos_arr.append(repo_info)\n                i +=\
+          \ 1\n            except:\n                pass\n\n    return {\n       \
+          \ \"result\": json.dumps(repos_arr)\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 1000
+        selected: false
+        title: 爬虫拉取github热榜
+        type: code
+        variables:
+        - value_selector:
+          - '1739359068969'
+          - text
+          variable: ar1
+      height: 80
+      id: '1739264853862'
+      position:
+        x: 638
+        y: 268
+      positionAbsolute:
+        x: 638
+        y: 268
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1739264853862'
+          - result
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: deepseek
+        prompt_template:
+        - id: 69135c8d-9867-4bf0-825f-38ff840386e0
+          role: system
+          text: "<instructions>\n  1.已经通过爬虫抓取了github上的热榜数据：{{#1739264853862.result#}}\
+            \ 是一个json array结构，其中name表示仓库名称，desc是对仓库的描述，link是仓库地址，stars是周期内活跃数\n  2.请你根据上述输入基于多个项目的描述内容进行总结，并针对广告系统研发人员给出基于内容趋势的建议，不超过700字\n\
+              2. 生成如下结构的内容，循环array输出每个元素内容：\n    #项目名称\n    项目地址\n    项目简介\n    star数\n\
+             最后输出总结\n3.对于项目相关的内容请保持原始输入内容，对于总结内容只能使用中文\n4.生成内容使用纯文本结构不要使用markdown语法，但要保持结构清晰\n\
+            </instructions>"
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1739275343358'
+      position:
+        x: 942
+        y: 268
+      positionAbsolute:
+        x: 942
+        y: 268
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\ndef main(arg1: str, arg2: str) -> dict:\n    res = {\n        \"\
+          type\":2,\n        \"msg\":{\n            \"text\":arg1\n        }\n   \
+          \ }\n    return {\n        \"result\": json.dumps(res),\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: TT格式化
+        type: code
+        variables:
+        - value_selector:
+          - '1739275343358'
+          - text
+          variable: arg1
+        - value_selector:
+          - sys
+          - user_id
+          variable: arg2
+      height: 54
+      id: '1739276134655'
+      position:
+        x: 1246
+        y: 268
+      positionAbsolute:
+        x: 1246
+        y: 268
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-1978
+            key: ''
+            type: text
+            value: '{{#1739276134655.result#}}'
+          type: json
+        desc: ''
+        headers: ''
+        method: post
+        params: 'yzjtype:0
+
+          yzjtoken:83d18ffb3c4540609351f1b186fa28bf'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: https://mtp.myoas.com/gateway/robot/webhook/send
+        variables: []
+      height: 136
+      id: '1739276238095'
+      position:
+        x: 1550
+        y: 268
+      positionAbsolute:
+        x: 1550
+        y: 268
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        provider_id: 3bf22bcd-fdb7-4e6a-b16d-450d604b9982
+        provider_name: 获取随机UA
+        provider_type: workflow
+        selected: false
+        title: 获取随机UA
+        tool_configurations: {}
+        tool_label: 获取随机UA
+        tool_name: get_random_ua
+        tool_parameters: {}
+        type: tool
+      height: 54
+      id: '1739359068969'
+      position:
+        x: 334
+        y: 268
+      positionAbsolute:
+        x: 334
+        y: 268
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -357.1647409684001
+      y: -116.68111605141678
+      zoom: 1.4077848125578554

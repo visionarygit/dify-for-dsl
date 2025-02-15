@@ -1,0 +1,838 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 腾讯广告平台最新产品能力推送
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: b6a40775-da70-47d6-9cfa-5d2acf48a098
+    name: yzjtoken
+    selector:
+    - env
+    - yzjtoken
+    value: 60bbc8c3dfe540e398e495cd6513accc
+    value_type: string
+  - description: ''
+    id: 7012c25b-a125-4ee3-9625-c3d48a4fe52b
+    name: day_limit
+    selector:
+    - env
+    - day_limit
+    value: 3
+    value_type: number
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1739433503612-source-1739433680080-target
+      selected: false
+      source: '1739433503612'
+      sourceHandle: source
+      target: '1739433680080'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1739436517742'
+        sourceType: iteration-start
+        targetType: template-transform
+      id: 1739436517742start-source-1739436654096-target
+      selected: false
+      source: 1739436517742start
+      sourceHandle: source
+      target: '1739436654096'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1739436517742'
+        sourceType: template-transform
+        targetType: tool
+      id: 1739436654096-source-1739436751313-target
+      selected: false
+      source: '1739436654096'
+      sourceHandle: source
+      target: '1739436751313'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1739436517742'
+        sourceType: tool
+        targetType: code
+      id: 1739436751313-source-1739436913356-target
+      selected: false
+      source: '1739436751313'
+      sourceHandle: source
+      target: '1739436913356'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1739436517742'
+        sourceType: code
+        targetType: llm
+      id: 1739436913356-source-1739437596946-target
+      selected: false
+      source: '1739436913356'
+      sourceHandle: source
+      target: '1739437596946'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1739436517742'
+        sourceType: llm
+        targetType: template-transform
+      id: 1739437596946-source-1739439887561-target
+      selected: false
+      source: '1739437596946'
+      sourceHandle: source
+      target: '1739439887561'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: iteration
+        targetType: template-transform
+      id: 1739436517742-source-1739440062276-target
+      source: '1739436517742'
+      sourceHandle: source
+      target: '1739440062276'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1739436517742'
+        sourceType: template-transform
+        targetType: tool
+      id: 1739439887561-source-1739599799476-target
+      source: '1739439887561'
+      sourceHandle: source
+      target: '1739599799476'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: tool
+      id: 1739433426739-source-1739600852601-target
+      source: '1739433426739'
+      sourceHandle: source
+      target: '1739600852601'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: tool
+        targetType: http-request
+      id: 1739600852601-source-1739433503612-target
+      source: '1739600852601'
+      sourceHandle: source
+      target: '1739433503612'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: if-else
+      id: 1739433680080-source-1739601147910-target
+      source: '1739433680080'
+      sourceHandle: source
+      target: '1739601147910'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: iteration
+      id: 1739601147910-true-1739436517742-target
+      source: '1739601147910'
+      sourceHandle: 'true'
+      target: '1739436517742'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: template-transform
+      id: 1739601147910-false-1739601186899-target
+      source: '1739601147910'
+      sourceHandle: 'false'
+      target: '1739601186899'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: template-transform
+        targetType: tool
+      id: 1739440062276-source-1739602073451-target
+      source: '1739440062276'
+      sourceHandle: source
+      target: '1739602073451'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: tool
+        targetType: end
+      id: 1739602073451-source-1739436045658-target
+      source: '1739602073451'
+      sourceHandle: source
+      target: '1739436045658'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: template-transform
+        targetType: tool
+      id: 1739601186899-source-1739602221891-target
+      source: '1739601186899'
+      sourceHandle: source
+      target: '1739602221891'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: tool
+        targetType: end
+      id: 1739602221891-source-1739436045658-target
+      source: '1739602221891'
+      sourceHandle: source
+      target: '1739436045658'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1739433426739'
+      position:
+        x: 30
+        y: 445
+      positionAbsolute:
+        x: 30
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: user-agent:{{#1739600852601.text#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取腾讯广告最新资讯
+        type: http-request
+        url: https://e.qq.com/portal/information/search?tag_category_ids=178&page=1&per_page=10&type=6
+        variables: []
+      height: 168
+      id: '1739433503612'
+      position:
+        x: 638
+        y: 445
+      positionAbsolute:
+        x: 638
+        y: 445
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import json\nfrom datetime import datetime\ndef main(arg1: str, day_limit:\
+          \ int) -> dict:\n    data = json.loads(arg1)\n    posts = data.get('data',\
+          \ {}).get('data', [])\n    res = []\n    for post in posts:\n        # 将字符串转换为datetime对象\n\
+          \        post_date = datetime.strptime(post['created_at'], '%Y-%m-%d %H:%M:%S').date()\n\
+          \        current_date = datetime.now().date()\n        # 计算时间差\n       \
+          \ time_diff = current_date - post_date\n        # 只有当时间差小于7天时才添加到结果中\n \
+          \       if time_diff.days < day_limit:\n            res.append({\n     \
+          \           \"title\": post['title'],\n                \"doc_id\": post['post_id'],\n\
+          \                \"create_time\":post['created_at']\n            })\n  \
+          \  return {\n        \"result\": res,\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: array[object]
+        selected: false
+        title: 内容提取
+        type: code
+        variables:
+        - value_selector:
+          - '1739433503612'
+          - body
+          variable: arg1
+        - value_selector:
+          - env
+          - day_limit
+          variable: day_limit
+      height: 54
+      id: '1739433680080'
+      position:
+        x: 942
+        y: 445
+      positionAbsolute:
+        x: 942
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs: []
+        selected: false
+        title: 结束
+        type: end
+      height: 54
+      id: '1739436045658'
+      position:
+        x: 4121
+        y: 445
+      positionAbsolute:
+        x: 4121
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 490
+        is_parallel: false
+        iterator_selector:
+        - '1739433680080'
+        - result
+        output_selector:
+        - '1739439887561'
+        - output
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1739436517742start
+        title: 迭代
+        type: iteration
+        width: 1902.8157283881465
+      height: 490
+      id: '1739436517742'
+      position:
+        x: 1551.885011301104
+        y: 445
+      positionAbsolute:
+        x: 1551.885011301104
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 1903
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1739436517742start
+      parentId: '1739436517742'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 1575.885011301104
+        y: 513
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        iteration_id: '1739436517742'
+        selected: false
+        template: https://e.qq.com/latestnews/detail/?pid={{ arg1.doc_id }}
+        title: 提取链接
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1739436517742'
+          - item
+          variable: arg1
+      height: 54
+      id: '1739436654096'
+      parentId: '1739436517742'
+      position:
+        x: 128
+        y: 67.40786419407317
+      positionAbsolute:
+        x: 1679.885011301104
+        y: 512.4078641940732
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        iteration_id: '1739436517742'
+        provider_id: jina
+        provider_name: jina
+        provider_type: builtin
+        selected: false
+        title: 提取文章内容
+        tool_configurations:
+          gather_all_images_at_the_end: 0
+          gather_all_links_at_the_end: 0
+          image_caption: 0
+          max_retries: 3
+          no_cache: 0
+          proxy_server: null
+          remove_selector: null
+          retain_images: 1
+          summary: 0
+          target_selector: div.case_article
+          wait_for_selector: null
+          with_iframe: 0
+          with_shadow_dom: 0
+        tool_label: 获取单页面
+        tool_name: jina_reader
+        tool_parameters:
+          url:
+            type: mixed
+            value: '{{#1739436654096.output#}}'
+        type: tool
+      height: 402
+      id: '1739436751313'
+      parentId: '1739436517742'
+      position:
+        x: 432
+        y: 66.81572838814634
+      positionAbsolute:
+        x: 1983.885011301104
+        y: 511.81572838814634
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        code: "import re\ndef main(arg1: str) -> dict:\n    cleaned_text = re.sub(r'!\\\
+          [Image\\s*\\S+', '', arg1)\n    cleaned_text = re.sub(r'https?://\\S+',\
+          \ '', cleaned_text)\n    cleaned_text = re.sub(r'\\s+', '', cleaned_text)\n\
+          \    return {\n        \"result\": cleaned_text,\n    }\n"
+        code_language: python3
+        desc: ''
+        isInIteration: true
+        iteration_id: '1739436517742'
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 格式清洗
+        type: code
+        variables:
+        - value_selector:
+          - '1739436751313'
+          - text
+          variable: arg1
+      height: 54
+      id: '1739436913356'
+      parentId: '1739436517742'
+      position:
+        x: 735.4078641940732
+        y: 66.81572838814634
+      positionAbsolute:
+        x: 2287.292875495177
+        y: 511.81572838814634
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1739436913356'
+          - result
+        desc: ''
+        isInIteration: true
+        iteration_id: '1739436517742'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: deepseek
+        prompt_template:
+        - id: 04b380d3-8f24-4864-9db2-95c8807dd884
+          role: system
+          text: '文章：{{#1739436913356.result#}}
+
+            输入是一个广告平台的最新产品能力说明，请你提取重点对文章进行总结，不超过200字'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1739437596946'
+      parentId: '1739436517742'
+      position:
+        x: 1038.8157283881465
+        y: 65
+      positionAbsolute:
+        x: 2590.7007396892504
+        y: 510
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        iteration_id: '1739436517742'
+        selected: false
+        template: "\r\n{{ '#' }} {{item.title}} --- {{item.create_time}}\r\n## 链接：\r\
+          \n{{ url }}\r\n## DeepSeek总结：\r\n{{desc}}"
+        title: 内容整合
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1739437596946'
+          - text
+          variable: desc
+        - value_selector:
+          - '1739436517742'
+          - item
+          variable: item
+        - value_selector:
+          - '1739436654096'
+          - output
+          variable: url
+      height: 54
+      id: '1739439887561'
+      parentId: '1739436517742'
+      position:
+        x: 1342.8157283881465
+        y: 65
+      positionAbsolute:
+        x: 2894.7007396892504
+        y: 510
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        selected: false
+        template: "# 腾讯广告近{{ day_limit }}天最新产品能力：\r\n{{ arg1 | join(\"\\n=================\\\
+          n\")}}\r\n\r\n查看往期内容：https://i042trrspey.feishu.cn/docx/OqQkdHYt6okTgVxT6EycyTi9ntc"
+        title: 有内容模板
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1739436517742'
+          - output
+          variable: arg1
+        - value_selector:
+          - env
+          - day_limit
+          variable: day_limit
+      height: 54
+      id: '1739440062276'
+      position:
+        x: 3513
+        y: 445
+      positionAbsolute:
+        x: 3513
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        isInIteration: true
+        iteration_id: '1739436517742'
+        provider_id: feishu_document
+        provider_name: feishu_document
+        provider_type: builtin
+        selected: false
+        title: 在飞书文档中新增内容
+        tool_configurations:
+          position: end
+        tool_label: 在飞书文档中新增内容
+        tool_name: write_document
+        tool_parameters:
+          content:
+            type: mixed
+            value: '{{#1739439887561.output#}}'
+          document_id:
+            type: mixed
+            value: https://i042trrspey.feishu.cn/docx/OqQkdHYt6okTgVxT6EycyTi9ntc
+        type: tool
+      height: 90
+      id: '1739599799476'
+      parentId: '1739436517742'
+      position:
+        x: 1645.9698200939652
+        y: 65
+      positionAbsolute:
+        x: 3197.854831395069
+        y: 510
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        provider_id: 3bf22bcd-fdb7-4e6a-b16d-450d604b9982
+        provider_name: 获取随机UA
+        provider_type: workflow
+        selected: false
+        title: 获取随机UA
+        tool_configurations: {}
+        tool_label: 获取随机UA
+        tool_name: get_random_ua
+        tool_parameters: {}
+        type: tool
+      height: 54
+      id: '1739600852601'
+      position:
+        x: 334
+        y: 445
+      positionAbsolute:
+        x: 334
+        y: 445
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 4889ef1a-feb4-4f86-bfc6-823e583146c7
+            value: ''
+            varType: array[object]
+            variable_selector:
+            - '1739433680080'
+            - result
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 126
+      id: '1739601147910'
+      position:
+        x: 1246
+        y: 445
+      positionAbsolute:
+        x: 1246
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: "腾讯广告近{{ day_limit }}天没有发布新的产品能力\r\n\r\n查看往期内容：\r\nhttps://i042trrspey.feishu.cn/docx/OqQkdHYt6okTgVxT6EycyTi9ntc"
+        title: 无内容模板
+        type: template-transform
+        variables: []
+      height: 54
+      id: '1739601186899'
+      position:
+        x: 3513
+        y: 720
+      positionAbsolute:
+        x: 3513
+        y: 720
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        provider_id: 02b3cc0a-2d47-49ae-bc10-353b5a329c57
+        provider_name: TT推送文本工具
+        provider_type: workflow
+        selected: false
+        title: TT推送文本工具
+        tool_configurations:
+          body: null
+          yjztoken: ''
+        tool_label: TT推送文本工具
+        tool_name: tt_push
+        tool_parameters:
+          body:
+            type: mixed
+            value: '{{#1739440062276.output#}}'
+          yjztoken:
+            type: mixed
+            value: '{{#env.yzjtoken#}}'
+        type: tool
+      height: 116
+      id: '1739602073451'
+      position:
+        x: 3817
+        y: 445
+      positionAbsolute:
+        x: 3817
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        provider_id: 02b3cc0a-2d47-49ae-bc10-353b5a329c57
+        provider_name: TT推送文本工具
+        provider_type: workflow
+        selected: false
+        title: TT推送文本工具
+        tool_configurations: {}
+        tool_label: TT推送文本工具
+        tool_name: tt_push
+        tool_parameters:
+          body:
+            type: mixed
+            value: '{{#1739601186899.output#}}'
+          yjztoken:
+            type: mixed
+            value: '{{#env.yzjtoken#}}'
+        type: tool
+      height: 54
+      id: '1739602221891'
+      position:
+        x: 3817
+        y: 750.3781781690742
+      positionAbsolute:
+        x: 3817
+        y: 750.3781781690742
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -462.0704902614257
+      y: -144.09591116849282
+      zoom: 1.061001596557279

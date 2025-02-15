@@ -1,0 +1,562 @@
+app:
+  description: 拉取36氪24小时热榜整理后推送至TT机器人
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: 36氪新闻热榜推送
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: http-request
+      id: 1739173058136-source-1739173522729-target
+      source: '1739173058136'
+      sourceHandle: source
+      target: '1739173522729'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: code
+      id: 1739173522729-source-1739173778892-target
+      source: '1739173522729'
+      sourceHandle: source
+      target: '1739173778892'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: end
+      id: 1739176923917-source-1739173566896-target
+      source: '1739176923917'
+      sourceHandle: source
+      target: '1739173566896'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: http-request
+      id: 1739177917020-source-1739176923917-target
+      source: '1739177917020'
+      sourceHandle: source
+      target: '1739176923917'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: iteration
+      id: 1739173778892-source-1739186083468-target
+      source: '1739173778892'
+      sourceHandle: source
+      target: '1739186083468'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        iteration_id: '1739186083468'
+        sourceType: iteration-start
+        targetType: template-transform
+      id: 1739186083468start-source-1739187618376-target
+      source: 1739186083468start
+      sourceHandle: source
+      target: '1739187618376'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1739186083468'
+        sourceType: template-transform
+        targetType: tool
+      id: 1739187618376-source-1739187767778-target
+      source: '1739187618376'
+      sourceHandle: source
+      target: '1739187767778'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        iteration_id: '1739186083468'
+        sourceType: tool
+        targetType: llm
+      id: 1739187767778-source-1739187931202-target
+      source: '1739187767778'
+      sourceHandle: source
+      target: '1739187931202'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        sourceType: iteration
+        targetType: template-transform
+      id: 1739186083468-source-1739190796375-target
+      source: '1739186083468'
+      sourceHandle: source
+      target: '1739190796375'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: template-transform
+        targetType: code
+      id: 1739190796375-source-1739177917020-target
+      source: '1739190796375'
+      sourceHandle: source
+      target: '1739177917020'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1739173058136'
+      position:
+        x: 30
+        y: 445
+      positionAbsolute:
+        x: 30
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: 拉取36氪热榜数据
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 36kr
+        type: http-request
+        url: https://api.vvhan.com/api/hotlist/36Ke
+        variables: []
+      height: 164
+      id: '1739173522729'
+      position:
+        x: 334
+        y: 445
+      positionAbsolute:
+        x: 334
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1739176575931'
+          - output
+          variable: body
+        selected: false
+        title: 结束
+        type: end
+      height: 90
+      id: '1739173566896'
+      position:
+        x: 2903
+        y: 445
+      positionAbsolute:
+        x: 2903
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\ndef main(arg1: str, arg2: str) -> dict:\n    data = json.loads(arg1)\n\
+          \    return {\n        \"result\": data['data'][:3],\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: array[object]
+        selected: false
+        title: 格式转换
+        type: code
+        variables:
+        - value_selector:
+          - '1739173522729'
+          - body
+          variable: arg1
+        - value_selector:
+          - '1739173522729'
+          - status_code
+          variable: arg2
+      height: 54
+      id: '1739173778892'
+      position:
+        x: 638
+        y: 445
+      positionAbsolute:
+        x: 638
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\ndef main(arg1: str, arg2: str) -> dict:\n    res = {\n        \"\
+          type\":2,\n        \"msg\":{\n            \"text\":arg1\n        }\n   \
+          \ }\n    return {\n        \"result\": json.dumps(res),\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: true
+        title: TT格式
+        type: code
+        variables:
+        - value_selector:
+          - '1739190796375'
+          - output
+          variable: arg1
+        - value_selector:
+          - '1739173778892'
+          - result
+          variable: arg2
+      height: 54
+      id: '1739177917020'
+      position:
+        x: 2288.2327336465505
+        y: 445
+      positionAbsolute:
+        x: 2288.2327336465505
+        y: 445
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-2
+            key: ''
+            type: text
+            value: '{{#1739177917020.result#}}'
+          type: json
+        desc: ''
+        headers: ''
+        method: post
+        params: 'yzjtype:0
+
+          yzjtoken:061d0ba03ade4b0197cfe213bb7f8ab7'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: TT机器人推送
+        type: http-request
+        url: https://mtp.myoas.com/gateway/robot/webhook/send
+        variables: []
+      height: 136
+      id: '1739176923917'
+      position:
+        x: 2599
+        y: 445
+      positionAbsolute:
+        x: 2599
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        error_handle_mode: terminated
+        height: 490
+        is_parallel: false
+        iterator_selector:
+        - '1739173778892'
+        - result
+        output_selector:
+        - '1739187931202'
+        - text
+        output_type: array[string]
+        parallel_nums: 3
+        selected: false
+        start_node_id: 1739186083468start
+        title: 迭代
+        type: iteration
+        width: 992.9779329418191
+      height: 490
+      id: '1739186083468'
+      position:
+        x: 685.5820519983904
+        y: 445
+      positionAbsolute:
+        x: 685.5820519983904
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 993
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1739186083468start
+      parentId: '1739186083468'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 709.5820519983904
+        y: 513
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        iteration_id: '1739186083468'
+        selected: false
+        template: '{{ arg1.url }}'
+        title: url提取
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1739186083468'
+          - item
+          variable: arg1
+      height: 54
+      id: '1739187618376'
+      parentId: '1739186083468'
+      position:
+        x: 124.97793294181906
+        y: 68
+      positionAbsolute:
+        x: 810.5599849402095
+        y: 513
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        isInIteration: true
+        iteration_id: '1739186083468'
+        provider_id: jina
+        provider_name: jina
+        provider_type: builtin
+        selected: false
+        title: 获取单页面
+        tool_configurations:
+          gather_all_images_at_the_end: 0
+          gather_all_links_at_the_end: 0
+          image_caption: 0
+          max_retries: 3
+          no_cache: 0
+          proxy_server: null
+          remove_selector: null
+          retain_images: 1
+          summary: 0
+          target_selector: null
+          wait_for_selector: null
+          with_iframe: 0
+          with_shadow_dom: 0
+        tool_label: 获取单页面
+        tool_name: jina_reader
+        tool_parameters:
+          request_params:
+            type: mixed
+            value: ''
+          url:
+            type: mixed
+            value: '{{#1739187618376.output#}}'
+        type: tool
+      height: 402
+      id: '1739187767778'
+      parentId: '1739186083468'
+      position:
+        x: 428.97793294181906
+        y: 68
+      positionAbsolute:
+        x: 1114.5599849402095
+        y: 513
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1739187767778'
+          - text
+        desc: ''
+        isInIteration: true
+        iteration_id: '1739186083468'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: Qwen/Qwen2.5-72B-Instruct
+          provider: siliconflow
+        prompt_template:
+        - id: fa366190-6eb3-4ba8-b2f3-31c7d600d4f1
+          role: system
+          text: "<instructions>\n  1. jina 抓取了36氪新闻网页内容：{{#1739187767778.text#}}\n\
+              2. 生成如下结构的内容：\n    新闻标题\n    ============================\n    新闻日期\n\
+                新闻内容\n  3.要求对新闻内容进行总结概括,要尽可能的精简,不超过500字\n</instructions>"
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1739187931202'
+      parentId: '1739186083468'
+      position:
+        x: 730.478122993992
+        y: 71.09630131884751
+      positionAbsolute:
+        x: 1416.0601749923824
+        y: 516.0963013188475
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+      zIndex: 1002
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ arg1 | join("\n=================\n") }}'
+        title: 资讯格式化
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1739186083468'
+          - output
+          variable: arg1
+      height: 54
+      id: '1739190796375'
+      position:
+        x: 1993.3081834116379
+        y: 445
+      positionAbsolute:
+        x: 1993.3081834116379
+        y: 445
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -1393.632555517911
+      y: -247.6854578193729
+      zoom: 0.9944701686732141
